@@ -13,31 +13,73 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
+    private BufferedReader in;
+    private PrintWriter out;
+    private Socket socket;
 
-    public static void main(String args[]) {
+    public Client() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Введите IP для подключения к серверу");
+        System.out.println("Формат: xxx.xxx.xxx.xxx");
+
+        String ip = scan.nextLine();
+
         try {
-            Socket socket = new Socket("localhost", 3456);
-            Client c = new Client();
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    socket.getInputStream()
-            ));
-            PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
-            String s;
-            Scanner sc = new Scanner(System.in);
-            s = br.readLine();
-            if (s.equals("1")){
-                s = sc.nextLine();
-                pw.println(s);
+            socket = new Socket(ip, 3456);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+
+            System.out.println("Введите свой ник:");
+            out.println(scan.nextLine());
+
+            Resender resend = new Resender();
+            resend.start();
+
+            String str = "";
+            while (!str.equals("exit")) {
+                str = scan.nextLine();
+                out.println(str);
             }
-            while (true) {
-                s = br.readLine();
-                System.out.print("Opponent: ");
-                System.out.println(s);
-                s = sc.nextLine();
-                pw.println(s);
-            }
-        } catch (IOException e) {
+            resend.setStop();
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            close();
+        }
+    }
+
+
+    private void close() {
+        try {
+            in.close();
+            out.close();
+            socket.close();
+        } catch (Exception e) {
+            System.err.println("Такого хоста нет.");
+        }
+    }
+
+
+    private class Resender extends Thread {
+
+        private boolean stoped;
+
+        public void setStop() {
+            stoped = true;
+        }
+
+        @Override
+        public void run() {
+            try {
+                while (!stoped) {
+                    String str = in.readLine();
+                    System.out.println(str);
+                }
+            } catch (IOException e) {
+                System.err.println("Ошибка при получении сообщения.");
+                e.printStackTrace();
+            }
         }
     }
 }

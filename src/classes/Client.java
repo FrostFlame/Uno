@@ -3,7 +3,7 @@ package classes;
  * Created by 1 on 05.12.2016.
  */
 
-import mythreads.ClientThread;
+import threads.Resender;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +16,11 @@ public class Client {
     private BufferedReader in;
     private PrintWriter out;
     private Socket socket;
+
+    public static void main(String[] args) {
+        new Client();
+    }
+
 
     public Client() {
         Scanner scan = new Scanner(System.in);
@@ -33,7 +38,7 @@ public class Client {
             System.out.println("Введите свой ник:");
             out.println(scan.nextLine());
 
-            Resender resend = new Resender();
+            Resender resend = new Resender(in);
             resend.start();
 
             String str = "";
@@ -57,29 +62,6 @@ public class Client {
             socket.close();
         } catch (Exception e) {
             System.err.println("Такого хоста нет.");
-        }
-    }
-
-
-    private class Resender extends Thread {
-
-        private boolean stoped;
-
-        public void setStop() {
-            stoped = true;
-        }
-
-        @Override
-        public void run() {
-            try {
-                while (!stoped) {
-                    String str = in.readLine();
-                    System.out.println(str);
-                }
-            } catch (IOException e) {
-                System.err.println("Ошибка при получении сообщения.");
-                e.printStackTrace();
-            }
         }
     }
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -49,7 +50,11 @@ public class Connection extends Thread {
 
             String str = "";
             while (true) {
-                str = in.readLine();
+                try {
+                    str = in.readLine();
+                }catch (SocketException e){
+                    break;
+                }
                 if (str.equals("exit")) break;
 
                 synchronized (connections) {

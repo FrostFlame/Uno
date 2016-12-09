@@ -33,12 +33,16 @@ public class Server {
             server = new ServerSocket(3456);
 
             while (true) {
-                Socket socket = server.accept();
+                List<Connection> roomconnectionslist = Collections.synchronizedList(new ArrayList<Connection>());
+                while (roomconnectionslist.size() < 4) {
+                    Socket socket = server.accept();
 
-                Connection con = new Connection(socket, connections);
-                connections.add(con);
-
-                con.start();
+//                    Connection con = new Connection(socket, connections);
+                    Connection con = new Connection(socket, roomconnectionslist);
+                    roomconnectionslist.add(con);
+//                    connections.add(con);
+                    con.start();
+                }
 
             }
         } catch (IOException e) {

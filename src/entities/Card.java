@@ -18,6 +18,12 @@ public class Card {
         this.color = color;
     }
 
+    public Card(long id, int value, Color color) {
+        this.id = id;
+        this.value = value;
+        this.color = color;
+    }
+
     public long getId() {
         return id;
     }

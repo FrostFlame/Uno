@@ -1,6 +1,9 @@
 package threads;
 
+import classes.Game;
 import classes.Server;
+import entities.Deck;
+import entities.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +22,7 @@ public class Connection extends Thread {
     private PrintWriter out;
     private Socket socket;
     private List<Connection> connections;
+    private Deck hand;
 
     private String name = "";
 
@@ -47,24 +51,30 @@ public class Connection extends Thread {
                     ((Connection) iter.next()).out.println(name + " cames now");
                 }
             }
-
-            String str = "";
-            while (true) {
-                try {
-                    str = in.readLine();
-                }catch (SocketException e){
-                    break;
-                }
-                if (str.equals("exit")) break;
-
-                synchronized (connections) {
-                    Iterator<Connection> iter = connections.iterator();
-                    while (iter.hasNext()) {
-                        ((Connection) iter.next()).out.println(name + ": " + str);
-                    }
+            Game game = new Game(connections);
+            String winner = game.play();
+//            String str = "";
+//            while (true) {
+//                try {
+//                    str = in.readLine();
+//                }catch (SocketException e){
+//                    break;
+//                }
+//                if (str.equals("exit")) break;
+//
+//                synchronized (connections) {
+//                    Iterator<Connection> iter = connections.iterator();
+//                    while (iter.hasNext()) {
+//                        ((Connection) iter.next()).out.println(name + ": " + str);
+//                    }
+//                }
+//            }
+            synchronized (connections) {
+                Iterator<Connection> iter = connections.iterator();
+                while (iter.hasNext()) {
+                    ((Connection) iter.next()).out.println(winner + " has won");
                 }
             }
-
             synchronized (connections) {
                 Iterator<Connection> iter = connections.iterator();
                 while (iter.hasNext()) {
@@ -88,5 +98,37 @@ public class Connection extends Thread {
         } catch (Exception e) {
             System.err.println("Ошибка в методе close() сервера.");
         }
+    }
+
+    public Deck getHand() {
+        return hand;
+    }
+
+    public void setHand(Deck hand) {
+        this.hand = hand;
+    }
+
+    public BufferedReader getIn() {
+        return in;
+    }
+
+    public void setIn(BufferedReader in) {
+        this.in = in;
+    }
+
+    public PrintWriter getOut() {
+        return out;
+    }
+
+    public void setOut(PrintWriter out) {
+        this.out = out;
+    }
+
+    public String getUserName() {
+        return name;
+    }
+
+    public void setUserName(String name) {
+        this.name = name;
     }
 }

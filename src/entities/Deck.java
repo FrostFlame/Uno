@@ -1,8 +1,5 @@
 package entities;
 
-import entities.Card;
-import entities.Color;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,9 +10,9 @@ import java.util.List;
 public class Deck {
     private List<Card> cards;
 
-    public Deck(boolean clear) {
+    public Deck(boolean empty) {
         cards = new ArrayList<>();
-        if (clear) {
+        if (!empty) {
             int id = 1;
             cards.add(new Card(id, 0, Color.RED));
             id++;

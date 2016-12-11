@@ -51,28 +51,20 @@ public class Connection extends Thread {
                     ((Connection) iter.next()).out.println(name + " cames now");
                 }
             }
-            Game game = new Game(connections);
-            String winner = game.play();
-//            String str = "";
-//            while (true) {
-//                try {
-//                    str = in.readLine();
-//                }catch (SocketException e){
-//                    break;
-//                }
-//                if (str.equals("exit")) break;
-//
-//                synchronized (connections) {
-//                    Iterator<Connection> iter = connections.iterator();
-//                    while (iter.hasNext()) {
-//                        ((Connection) iter.next()).out.println(name + ": " + str);
-//                    }
-//                }
-//            }
-            synchronized (connections) {
-                Iterator<Connection> iter = connections.iterator();
-                while (iter.hasNext()) {
-                    ((Connection) iter.next()).out.println(winner + " has won");
+            String str = "";
+            while (true) {
+                try {
+                    str = in.readLine();
+                }catch (SocketException e){
+                    break;
+                }
+                if (str.equals("exit")) break;
+
+                synchronized (connections) {
+                    Iterator<Connection> iter = connections.iterator();
+                    while (iter.hasNext()) {
+                        ((Connection) iter.next()).out.println(name + ": " + str);
+                    }
                 }
             }
             synchronized (connections) {

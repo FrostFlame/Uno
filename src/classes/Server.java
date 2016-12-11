@@ -42,6 +42,16 @@ public class Server {
                     roomconnectionslist.add(con);
 //                    connections.add(con);
                     con.start();
+
+
+                    Game game = new Game(connections);
+                    String winner = game.play();
+                    synchronized (connections) {
+                        Iterator<Connection> iter = connections.iterator();
+                        while (iter.hasNext()) {
+                            ((Connection) iter.next()).getOut().println(winner + " has won");
+                        }
+                    }
                 }
 
             }

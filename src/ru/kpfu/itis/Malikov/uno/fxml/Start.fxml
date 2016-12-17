@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="800.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kpfu.itis.Malikov.uno.controllers.StartMenuController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="800.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../UNO/src/ru/kpfu/itis/Malikov/uno/images/Настольная-игра-Уно.jpg" />
+         </image>
+      </ImageView>
+      <Button id="main-menu-button-blue" fx:id="game" layoutX="276.0" layoutY="163.0" mnemonicParsing="false" onAction="#goTo" prefHeight="69.0" prefWidth="248.0" text="Начать игру" />
+      <Button id="main-menu-button-yellow" fx:id="help" layoutX="276.0" layoutY="266.0" mnemonicParsing="false" onAction="#goTo" prefHeight="69.0" prefWidth="248.0" text="Помощь" />
+      <Button id="main-menu-button-red" fx:id="exit" layoutX="276.0" layoutY="369.0" mnemonicParsing="false" onAction="#goTo" prefHeight="69.0" prefWidth="248.0" text="Выйти" />
+   </children>
+</Pane>

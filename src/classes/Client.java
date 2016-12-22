@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Client {
@@ -30,7 +31,12 @@ public class Client {
         String ip = scan.nextLine();
 
         try {
-            socket = new Socket(ip, 3456);
+            try {
+                socket = new Socket(ip, 3456);
+            }catch (UnknownHostException e){
+                System.out.println("Такого хоста нет.");
+                close();
+            }
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
 
@@ -41,7 +47,7 @@ public class Client {
             resend.start();
 
             String str = "";
-            while (!str.equals("exit")) {
+            while (!str.equals("exit") & resend.isAlive()) {
                 str = scan.nextLine();
                 out.println(str);
             }

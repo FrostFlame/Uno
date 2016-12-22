@@ -1,6 +1,7 @@
 package classes;
 
-import threads.Connection;
+import entities.User;
+//import threads.Connection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,8 +24,8 @@ public class Server {
     }
 
 
-    private List<Connection> connections =
-            Collections.synchronizedList(new ArrayList<Connection>());
+//    private List<Connection> connections =
+//            Collections.synchronizedList(new ArrayList<Connection>());
     private ServerSocket server;
 
 
@@ -33,27 +34,16 @@ public class Server {
             server = new ServerSocket(3456);
 
             while (true) {
-                List<Connection> roomconnectionslist = Collections.synchronizedList(new ArrayList<Connection>());
-                while (roomconnectionslist.size() < 4) {
+                List<User> users = new ArrayList<User>();
+                while (users.size() < 4) {
                     Socket socket = server.accept();
-
-//                    Connection con = new Connection(socket, connections);
-                    Connection con = new Connection(socket, roomconnectionslist);
-                    roomconnectionslist.add(con);
-//                    connections.add(con);
-                    con.start();
-
-
-                    Game game = new Game(connections);
-                    String winner = game.play();
-                    synchronized (connections) {
-                        Iterator<Connection> iter = connections.iterator();
-                        while (iter.hasNext()) {
-                            ((Connection) iter.next()).getOut().println(winner + " has won");
-                        }
-                    }
+                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                            socket.getInputStream()));
+                    User user = new User(users.size(), in.readLine(), socket);
+                    users.add(user);
                 }
-
+                Game game = new Game(users);
+                game.play();
             }
         } catch (IOException e) {
             e.printStackTrace();

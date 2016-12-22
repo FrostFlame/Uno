@@ -1,5 +1,6 @@
 package classes;
 
+import entities.Card;
 import entities.Deck;
 import entities.User;
 
@@ -22,6 +23,7 @@ public class Game {
     }
 
     public void play() {
+        //start game
         User c = users.get(0);
         for (User user : users) {
             user.getOut().println(c.getName() + " goes first.");
@@ -29,11 +31,23 @@ public class Game {
         Deck deck = new Deck(false);
         deck.reshuffle();
         Deck discardpile = new Deck(true);
+
+        //start hands
         for (User user: users) {
             for (int i = 0; i < 7; i++) {
                 user.getHand().putCard(deck.draw());
             }
         }
+
+        for (User user: users){
+            PrintWriter out = user.getOut();
+            for (Card card: user.getHand().getCards()){
+                out.print(card + " ");
+            }
+            System.out.println();
+        }
+
+        //Game loop
         for (User user : users) {
             BufferedReader in = user.getIn();
             String message = null;
@@ -47,6 +61,8 @@ public class Game {
                 out.println(message);
             }
         }
+
+        //Results
         String winner = users.get(0).getName();
         String secondplace = users.get(1).getName();
         String thirdplace = users.get(2).getName();

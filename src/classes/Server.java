@@ -24,8 +24,6 @@ public class Server {
     }
 
 
-//    private List<Connection> connections =
-//            Collections.synchronizedList(new ArrayList<Connection>());
     private ServerSocket server;
 
 

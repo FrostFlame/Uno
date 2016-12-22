@@ -27,7 +27,13 @@ public class Game {
             user.getOut().println(c.getName() + " goes first.");
         }
         Deck deck = new Deck(false);
+        deck.reshuffle();
         Deck discardpile = new Deck(true);
+        for (User user: users) {
+            for (int i = 0; i < 7; i++) {
+                user.getHand().putCard(deck.draw());
+            }
+        }
         for (User user : users) {
             BufferedReader in = user.getIn();
             String message = null;

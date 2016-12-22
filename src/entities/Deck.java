@@ -57,7 +57,25 @@ public class Deck {
         }
     }
 
-    private void reshuffle(){
+    public Card draw(){
+        Card draw = cards.get(0);
+        cards.remove(0);
+        return draw;
+    }
+
+    public void putCard(Card card){
+        cards.add(card);
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public void reshuffle(){
         Collections.shuffle(cards);
     }
 }

@@ -17,7 +17,15 @@ public class User {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
+    private Deck hand = new Deck(true);
 
+    public Deck getHand() {
+        return hand;
+    }
+
+    public void setHand(Deck hand) {
+        this.hand = hand;
+    }
 
     public User(long id, String name, Socket socket) {
         this.id = id;

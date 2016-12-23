@@ -1,6 +1,7 @@
 package classes;
 
 import entities.Card;
+import entities.Color;
 import entities.Deck;
 import entities.User;
 
@@ -8,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //import threads.Connection;
@@ -39,7 +42,7 @@ public class Game {
             }
         }
 
-        for (User user: users){
+        for (User user: users){//first hands show
             PrintWriter out = user.getOut();
             for (Card card: user.getHand().getCards()){
                 out.print(card + " ");
@@ -63,13 +66,34 @@ public class Game {
         }
 
         //Results
-        String winner = users.get(0).getName();
-        String secondplace = users.get(1).getName();
-        String thirdplace = users.get(2).getName();
-        String lastplace = users.get(3).getName();
-        int secondpoints = 0;
-        int thirdpoints = 0;
-        int lastpoints = 0;
+        ArrayList<Integer>results = new ArrayList<>();
+        for(User user: users){
+            int result = 0;
+            for (Card card: user.getHand().getCards()){
+                if (card.getColor().equals(Color.BLACK)){
+                    result += 50;
+                }
+                else if (card.getValue() > 9){
+                    result += 20;
+                }
+                else {
+                    result += card.getValue();
+                }
+            }
+            results.add(result);
+        }
+        int x = users.indexOf(Collections.min(results));
+        String winner = users.get(x).getName();//ToDo fix ArrayIndexOutOfBoundException
+        results.remove(x);
+        x = users.indexOf(Collections.min(results));
+        String secondplace = users.get(x).getName();
+        int secondpoints = results.get(x);
+        x = users.indexOf(Collections.min(results));
+        String thirdplace = users.get(x).getName();
+        int thirdpoints = results.get(x);
+        x = users.indexOf(Collections.min(results));
+        String lastplace = users.get(x).getName();
+        int lastpoints = results.get(x);
         for (User user : users) {
             user.getOut().println(winner + " has won");
             user.getOut().println(secondplace + " took the second place with " + secondpoints + " points");

@@ -33,6 +33,7 @@ public class Resender extends Thread {
                 }
                 System.out.println(str);
             }
+
         } catch (IOException e) {
             System.err.println("Ошибка при получении сообщения.");
             e.printStackTrace();

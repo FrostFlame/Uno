@@ -67,6 +67,14 @@ public class Deck {
         cards.add(card);
     }
 
+    public Card getCardById(long card_id){
+        for(Card card: cards){
+            if (card.getId() == card_id)
+                return card;
+        }
+        return null;
+    }
+
     public List<Card> getCards() {
         return cards;
     }

@@ -36,16 +36,16 @@ public class Game {
         Deck discardpile = new Deck(true);
 
         //start hands
-        for (User user: users) {
+        for (User user : users) {
             for (int i = 0; i < 7; i++) {
                 user.getHand().putCard(deck.draw());
             }
         }
 
         //first hands show
-        for (User user: users){
+        for (User user : users) {
             PrintWriter out = user.getOut();
-            for (Card card: user.getHand().getCards()){
+            for (Card card : user.getHand().getCards()) {
                 out.print(card + " ");
             }
             user.getOut().println();
@@ -53,40 +53,38 @@ public class Game {
 
         //Game loop
         for (User user : users) {
-            BufferedReader in = user.getIn();
-            String message = null;
             try {
-                message = in.readLine();
+                BufferedReader in = user.getIn();
+                String message = in.readLine();
+                long id = Long.parseLong(message);
+                for (User user1 : users) {
+                    PrintWriter out = user1.getOut();
+                    out.println(user.getHand().getCardById(id));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            for (User user1 : users) {
-                PrintWriter out = user1.getOut();
-                out.println(message);
             }
         }
 
         //Results
-        ArrayList<Integer>results = new ArrayList<>();
-        for(User user: users){
+        ArrayList<Integer> results = new ArrayList<>();
+        for (User user : users) {
             int result = 0;
-            for (Card card: user.getHand().getCards()){
-                if (card.getColor().equals(Color.BLACK)){
+            for (Card card : user.getHand().getCards()) {
+                if (card.getColor().equals(Color.BLACK)) {
                     result += 50;
-                }
-                else if (card.getValue() > 9){
+                } else if (card.getValue() > 9) {
                     result += 20;
-                }
-                else {
+                } else {
                     result += card.getValue();
                 }
             }
             results.add(result);
         }
-        for(int i = 0; i < users.size(); i++){
+        for (int i = 0; i < users.size(); i++) {
             int x = results.indexOf(Collections.min(results));
             String name = users.get(x).getName();
-            for(User user: users){
+            for (User user : users) {
                 user.getOut().println(name + " takes place №" + (i + 1) + " with " + results.get(x) + " points.");
             }
             results.remove(x);

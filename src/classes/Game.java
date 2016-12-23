@@ -27,9 +27,9 @@ public class Game {
 
     public void play() {
         //start game
-        User c = users.get(0);
+        User firstplayer = users.get(0);
         for (User user : users) {
-            user.getOut().println(c.getName() + " goes first.");
+            user.getOut().println(firstplayer.getName() + " goes first.");
         }
         Deck deck = new Deck(false);
         deck.reshuffle();
@@ -50,6 +50,8 @@ public class Game {
             }
             user.getOut().println();
         }
+
+        Card prevCard = null;
 
         //Game loop
         for (User user : users) {

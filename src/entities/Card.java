@@ -70,4 +70,8 @@ public class Card {
                 ", value=" + value +
                 ", color=" + color + ")";
     }
+
+    public boolean isPlayable(Card prevcard){
+        return prevcard == null || prevcard.color == Color.BLACK || this.color == prevcard.color || this.value == prevcard.value;
+    }
 }

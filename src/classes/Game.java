@@ -82,23 +82,16 @@ public class Game {
             }
             results.add(result);
         }
-        int x = users.indexOf(Collections.min(results));
-        String winner = users.get(x).getName();//ToDo fix ArrayIndexOutOfBoundException
-        results.remove(x);
-        x = users.indexOf(Collections.min(results));
-        String secondplace = users.get(x).getName();
-        int secondpoints = results.get(x);
-        x = users.indexOf(Collections.min(results));
-        String thirdplace = users.get(x).getName();
-        int thirdpoints = results.get(x);
-        x = users.indexOf(Collections.min(results));
-        String lastplace = users.get(x).getName();
-        int lastpoints = results.get(x);
+        for(int i = 0; i < users.size(); i++){
+            int x = results.indexOf(Collections.min(results));
+            String name = users.get(x).getName();
+            for(User user: users){
+                user.getOut().println(name + " takes place №" + (i + 1) + " with " + results.get(x) + " points.");
+            }
+            results.remove(x);
+            results.add(x, 1000);
+        }
         for (User user : users) {
-            user.getOut().println(winner + " has won");
-            user.getOut().println(secondplace + " took the second place with " + secondpoints + " points");
-            user.getOut().println(thirdplace + " took the third place with " + thirdpoints + " points");
-            user.getOut().println(lastplace + " took the last place with " + lastpoints + " points");
             user.getOut().println("exit");
             user.close();
         }

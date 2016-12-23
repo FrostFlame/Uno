@@ -23,25 +23,25 @@ public class Deck {
             cards.add(new Card(id, 0, Color.BLUE));
             id++;
             for (int j = 0; j < 2; j++) {
-                for (int i = 1; i < 12; i++) {
+                for (int i = 1; i < 13; i++) {
                     cards.add(new Card(id, i, Color.RED));
                     id++;
                 }
             }
             for (int j = 0; j < 2; j++) {
-                for (int i = 1; i < 12; i++) {
+                for (int i = 1; i < 13; i++) {
                     cards.add(new Card(id, i, Color.YELLOW));
                     id++;
                 }
             }
             for (int j = 0; j < 2; j++) {
-                for (int i = 1; i < 12; i++) {
+                for (int i = 1; i < 13; i++) {
                     cards.add(new Card(id, i, Color.GREEN));
                     id++;
                 }
             }
             for (int j = 0; j < 2; j++) {
-                for (int i = 1; i < 12; i++) {
+                for (int i = 1; i < 13; i++) {
                     cards.add(new Card(id, i, Color.BLUE));
                     id++;
                 }

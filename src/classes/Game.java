@@ -42,12 +42,13 @@ public class Game {
             }
         }
 
-        for (User user: users){//first hands show
+        //first hands show
+        for (User user: users){
             PrintWriter out = user.getOut();
             for (Card card: user.getHand().getCards()){
                 out.print(card + " ");
             }
-            System.out.println();
+            user.getOut().println();
         }
 
         //Game loop

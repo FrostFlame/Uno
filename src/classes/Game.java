@@ -57,9 +57,14 @@ public class Game {
                 BufferedReader in = user.getIn();
                 String message = in.readLine();
                 long id = Long.parseLong(message);
+                Card card = user.getHand().getCardById(id);
+                user.getHand().playCardById(id, discardpile);
                 for (User user1 : users) {
                     PrintWriter out = user1.getOut();
-                    out.println(user.getHand().getCardById(id));
+                    out.println(card);
+                }
+                for (Card card1: user.getHand().getCards()){
+                    user.getOut().print(card1 + " ");
                 }
             } catch (IOException e) {
                 e.printStackTrace();

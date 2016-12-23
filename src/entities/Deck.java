@@ -75,6 +75,12 @@ public class Deck {
         return null;
     }
 
+    public void playCardById(long card_id, Deck discardPile){
+        Card card = this.getCardById(card_id);
+        discardPile.getCards().add(card);
+        this.getCards().remove(card);
+    }
+
     public List<Card> getCards() {
         return cards;
     }

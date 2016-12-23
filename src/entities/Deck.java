@@ -57,13 +57,18 @@ public class Deck {
         }
     }
 
-    public Card draw(){
+    public Card draw(){//Вытащить карту из колоды
         Card draw = cards.get(0);
         cards.remove(0);
         return draw;
     }
 
-    public void putCard(Card card){
+    public void takeCard(Deck deck){//Взять карту из другой колоды и положить в эту
+        Card card = deck.draw();
+        this.putCard(card);
+    }
+
+    public void putCard(Card card){//Положить карту в колоду
         cards.add(card);
     }
 

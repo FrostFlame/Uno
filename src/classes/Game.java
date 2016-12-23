@@ -50,35 +50,48 @@ public class Game {
         Card prevCard = null;
 
         //Game loop
-        for (User user : users) {
-            try {
-                for (User user1 : users) {
-                    user1.getOut().println(user.getName() + " goes now: ");
-                }
-                BufferedReader in = user.getIn();
-                boolean flag = false;
-                while (!flag) {
-                    long id = Long.parseLong(in.readLine());
-                    Card card = user.getHand().getCardById(id);
-                    if (card.isPlayable(prevCard)) {
-                        prevCard = card;
-                        user.getHand().playCardById(id, discardpile);
-                        for (User user1 : users) {
-                            PrintWriter out = user1.getOut();
-                            out.println(card);
-                        }
-                        user.getOut().println("Your current hand:");
-                        for (Card card1 : user.getHand().getCards()) {
-                            user.getOut().print(card1 + " ");
-                        }
-                        user.getOut().println();
-                        flag = true;
-                    } else {
-                        user.getOut().println("Try again.");
+        while (users.get(0).getHand().getCards().size() != 0 && users.get(1).getHand().getCards().size() != 0 && users.get(2).getHand().getCards().size() != 0 && users.get(3).getHand().getCards().size() != 0) {
+            for (User user : users) {
+                try {
+                    for (User user1 : users) {
+                        user1.getOut().println(user.getName() + " goes now: ");
                     }
+                    BufferedReader in = user.getIn();
+                    boolean flag = false;
+                    while (!flag) {
+                        String message = in.readLine();
+                        if (message.equals("draw")){
+                            user.getHand().takeCard(deck);
+                            user.getOut().println("Your current hand:");
+                            for (Card card : user.getHand().getCards()) {
+                                user.getOut().print(card + " ");
+                            }
+                            user.getOut().println();
+                        }
+                        else {
+                            long id = Long.parseLong(message);
+                            Card card = user.getHand().getCardById(id);
+                            if (card.isPlayable(prevCard)) {
+                                prevCard = card;
+                                user.getHand().playCardById(id, discardpile);
+                                for (User user1 : users) {
+                                    PrintWriter out = user1.getOut();
+                                    out.println(card);
+                                }
+                                user.getOut().println("Your current hand:");
+                                for (Card card1 : user.getHand().getCards()) {
+                                    user.getOut().print(card1 + " ");
+                                }
+                                user.getOut().println();
+                                flag = true;
+                            } else {
+                                user.getOut().println("Try again.");
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 

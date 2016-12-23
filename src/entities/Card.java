@@ -6,7 +6,7 @@ package entities;
 public class Card {
     private long id;
     private String link;
-    private int value;
+    private int value; //10 - pass, 11 - reverse, 12 - draw 2, 13 - choose color, 14 - draw 4
     private String back;
     private Color color;
 

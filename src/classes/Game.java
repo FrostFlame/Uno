@@ -27,10 +27,6 @@ public class Game {
 
     public void play() {
         //start game
-        User firstplayer = users.get(0);
-        for (User user : users) {
-            user.getOut().println(firstplayer.getName() + " goes first.");
-        }
         Deck deck = new Deck(false);
         deck.reshuffle();
         Deck discardpile = new Deck(true);
@@ -56,17 +52,30 @@ public class Game {
         //Game loop
         for (User user : users) {
             try {
-                BufferedReader in = user.getIn();
-                String message = in.readLine();
-                long id = Long.parseLong(message);
-                Card card = user.getHand().getCardById(id);
-                user.getHand().playCardById(id, discardpile);
                 for (User user1 : users) {
-                    PrintWriter out = user1.getOut();
-                    out.println(card);
+                    user1.getOut().println(user.getName() + " goes now: ");
                 }
-                for (Card card1: user.getHand().getCards()){
-                    user.getOut().print(card1 + " ");
+                BufferedReader in = user.getIn();
+                boolean flag = false;
+                while (!flag) {
+                    long id = Long.parseLong(in.readLine());
+                    Card card = user.getHand().getCardById(id);
+                    if (card.isPlayable(prevCard)) {
+                        prevCard = card;
+                        user.getHand().playCardById(id, discardpile);
+                        for (User user1 : users) {
+                            PrintWriter out = user1.getOut();
+                            out.println(card);
+                        }
+                        user.getOut().println("Your current hand:");
+                        for (Card card1 : user.getHand().getCards()) {
+                            user.getOut().print(card1 + " ");
+                        }
+                        user.getOut().println();
+                        flag = true;
+                    } else {
+                        user.getOut().println("Try again.");
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -91,4 +91,12 @@ public class User {
     public void setIn(BufferedReader in) {
         this.in = in;
     }
+
+    public void handOut(){
+        out.println("Your current hand:");
+        for (Card card : hand.getCards()) {
+            out.print(card + " ");
+        }
+        out.println();
+    }
 }

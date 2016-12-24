@@ -40,11 +40,7 @@ public class Game {
 
         //first hands show
         for (User user : users) {
-            PrintWriter out = user.getOut();
-            for (Card card : user.getHand().getCards()) {
-                out.print(card + " ");
-            }
-            user.getOut().println();
+            user.handOut();
         }
 
         Card prevCard = null;
@@ -56,21 +52,22 @@ public class Game {
                     prevCard = new Card(-1, prevCard.getColor());
                     continue;
                 }
+                if (prevCard != null && prevCard.getValue() == 12){
+                    user.getHand().takeCard(deck);
+                    user.getHand().takeCard(deck);
+                }
                 try {
                     for (User user1 : users) {
                         user1.getOut().println(user.getName() + " goes now: ");
                     }
+                    user.handOut();
                     BufferedReader in = user.getIn();
                     boolean flag = false;
                     while (!flag) {
                         String message = in.readLine();
                         if (message.equals("draw")){
                             user.getHand().takeCard(deck);
-                            user.getOut().println("Your current hand:");
-                            for (Card card : user.getHand().getCards()) {
-                                user.getOut().print(card + " ");
-                            }
-                            user.getOut().println();
+                            user.handOut();
                         }
                         else {
                             long id = Long.parseLong(message);
@@ -82,11 +79,7 @@ public class Game {
                                     PrintWriter out = user1.getOut();
                                     out.println(card);
                                 }
-                                user.getOut().println("Your current hand:");
-                                for (Card card1 : user.getHand().getCards()) {
-                                    user.getOut().print(card1 + " ");
-                                }
-                                user.getOut().println();
+                                user.handOut();
                                 flag = true;
                             } else {
                                 user.getOut().println("Try again.");

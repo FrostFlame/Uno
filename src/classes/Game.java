@@ -75,6 +75,27 @@ public class Game {
                             if (card.isPlayable(prevCard)) {
                                 prevCard = card;
                                 user.getHand().playCardById(id, discardpile);
+                                if (card.getValue() == 13){
+                                    user.getOut().println("Choose color:");
+                                    message = in.readLine();
+                                    switch (message){
+                                        case "red":
+                                            card.setColor(Color.RED);
+                                            break;
+                                        case "green":
+                                            card.setColor(Color.GREEN);
+                                            break;
+                                        case "blue":
+                                            card.setColor(Color.BLUE);
+                                            break;
+                                        case "yellow":
+                                            card.setColor(Color.YELLOW);
+                                            break;
+                                    }
+                                    for (User user1: users){
+                                        user1.getOut().println("Color is " + message + " now.");
+                                    }
+                                }
                                 for (User user1 : users) {
                                     PrintWriter out = user1.getOut();
                                     out.println(card);

@@ -52,6 +52,10 @@ public class Game {
         //Game loop
         while (users.get(0).getHand().getCards().size() != 0 && users.get(1).getHand().getCards().size() != 0 && users.get(2).getHand().getCards().size() != 0 && users.get(3).getHand().getCards().size() != 0) {
             for (User user : users) {
+                if (prevCard != null && prevCard.getValue() == 10){
+                    prevCard = new Card(-1, prevCard.getColor());
+                    continue;
+                }
                 try {
                     for (User user1 : users) {
                         user1.getOut().println(user.getName() + " goes now: ");

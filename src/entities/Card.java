@@ -64,6 +64,11 @@ public class Card {
         this.color = color;
     }
 
+    public Card(int value, Color color) {
+        this.value = value;
+        this.color = color;
+    }
+
     @Override
     public String toString() {
         return "(id=" + id +

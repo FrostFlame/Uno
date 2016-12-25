@@ -73,8 +73,13 @@ public class Game {
                     while (!flag) {
                         String message = in.readLine();
                         if (message.equals("draw")) {
-                            user.getHand().takeCard(deck);
-                            user.handOut();
+                            if (user.getHand().isContainsPlayable(prevCard)) {
+                                user.getOut().println("Sorry, you have a playable card. You can not draw.");
+                            }
+                            else {
+                                user.getHand().takeCard(deck);
+                                user.handOut();
+                            }
                         } else {
                             long id = Long.parseLong(message);
                             if (user.getHand().isContainsId(id)) {

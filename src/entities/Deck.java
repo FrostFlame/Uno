@@ -57,39 +57,56 @@ public class Deck {
         }
     }
 
-    public boolean isContainsId(long id){
-        for(Card card: cards){
-            if (card.getId() == id){
+    public boolean isContainsId(long id) {
+        for (Card card : cards) {
+            if (card.getId() == id) {
                 return true;
             }
         }
         return false;
     }
 
-    public Card draw(){//Вытащить карту из колоды
+    public boolean isContainsPlayable(Card prevcard) {
+        for (Card card : cards) {
+            if (card.isPlayable(prevcard)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Card draw() {//Вытащить карту из этой колоды
         Card draw = cards.get(0);
         cards.remove(0);
         return draw;
     }
 
-    public void takeCard(Deck deck){//Взять карту из другой колоды и положить в эту
+    public void takeCard(Deck deck, Deck discardPile) {//Взять карту из другой колоды и положить в эту
+        if (deck.getCards().size() == 0){
+            int i = discardPile.getCards().size();
+            for (int j = 0; j < i; j++){
+                Card card = discardPile.draw();
+                deck.putCard(card);
+            }
+            deck.reshuffle();
+        }
         Card card = deck.draw();
         this.putCard(card);
     }
 
-    public void putCard(Card card){//Положить карту в колоду
+    public void putCard(Card card) {//Положить карту в колоду
         cards.add(card);
     }
 
-    public Card getCardById(long card_id){
-        for(Card card: cards){
+    public Card getCardById(long card_id) {
+        for (Card card : cards) {
             if (card.getId() == card_id)
                 return card;
         }
         return null;
     }
 
-    public void playCardById(long card_id, Deck discardPile){
+    public void playCardById(long card_id, Deck discardPile) {
         Card card = this.getCardById(card_id);
         discardPile.getCards().add(card);
         this.getCards().remove(card);
@@ -99,11 +116,7 @@ public class Deck {
         return cards;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
-
-    public void reshuffle(){
+    public void reshuffle() {
         Collections.shuffle(cards);
     }
 }

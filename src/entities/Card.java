@@ -77,6 +77,6 @@ public class Card {
     }
 
     public boolean isPlayable(Card prevcard){
-        return prevcard == null || prevcard.color == Color.BLACK || this.color == Color.BLACK || this.color == prevcard.color || this.value == prevcard.value;
+        return prevcard == null || prevcard.color == Color.BLACK | this.color == Color.BLACK | this.color == prevcard.color | this.value == prevcard.value;
     }
 }

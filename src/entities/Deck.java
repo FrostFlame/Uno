@@ -57,6 +57,15 @@ public class Deck {
         }
     }
 
+    public boolean isContainsId(long id){
+        for(Card card: cards){
+            if (card.getId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Card draw(){//Вытащить карту из колоды
         Card draw = cards.get(0);
         cards.remove(0);

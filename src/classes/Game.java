@@ -48,13 +48,20 @@ public class Game {
         //Game loop
         while (users.get(0).getHand().getCards().size() != 0 && users.get(1).getHand().getCards().size() != 0 && users.get(2).getHand().getCards().size() != 0 && users.get(3).getHand().getCards().size() != 0) {
             for (User user : users) {
-                if (prevCard != null && prevCard.getValue() == 10){
-                    prevCard = new Card(-1, prevCard.getColor());
-                    continue;
-                }
-                if (prevCard != null && prevCard.getValue() == 12){
-                    user.getHand().takeCard(deck);
-                    user.getHand().takeCard(deck);
+                if (prevCard != null) {
+                    if (prevCard.getValue() == 10) {
+                        prevCard = new Card(-1, prevCard.getColor());
+                        continue;
+                    }
+                    if (prevCard.getValue() == 12) {
+                        user.getHand().takeCard(deck);
+                        user.getHand().takeCard(deck);
+                    } else if (prevCard.getValue() == 14) {
+                        user.getHand().takeCard(deck);
+                        user.getHand().takeCard(deck);
+                        user.getHand().takeCard(deck);
+                        user.getHand().takeCard(deck);
+                    }
                 }
                 try {
                     for (User user1 : users) {
@@ -65,45 +72,57 @@ public class Game {
                     boolean flag = false;
                     while (!flag) {
                         String message = in.readLine();
-                        if (message.equals("draw")){
+                        if (message.equals("draw")) {
                             user.getHand().takeCard(deck);
                             user.handOut();
-                        }
-                        else {
+                        } else {
                             long id = Long.parseLong(message);
-                            Card card = user.getHand().getCardById(id);
-                            if (card.isPlayable(prevCard)) {
-                                prevCard = card;
-                                user.getHand().playCardById(id, discardpile);
-                                if (card.getValue() == 13){
-                                    user.getOut().println("Choose color:");
-                                    message = in.readLine();
-                                    switch (message){
-                                        case "red":
-                                            card.setColor(Color.RED);
-                                            break;
-                                        case "green":
-                                            card.setColor(Color.GREEN);
-                                            break;
-                                        case "blue":
-                                            card.setColor(Color.BLUE);
-                                            break;
-                                        case "yellow":
-                                            card.setColor(Color.YELLOW);
-                                            break;
+                            if (user.getHand().isContainsId(id)) {
+                                Card card = user.getHand().getCardById(id);
+                                if (card.isPlayable(prevCard)) {
+                                    prevCard = card;
+                                    user.getHand().playCardById(id, discardpile);
+                                    if (card.getValue() == 13 || card.getValue() == 14) {
+                                        user.getOut().println("Choose color:");
+                                        boolean flag2 = false;
+                                        while (!flag2) {
+                                            message = in.readLine();
+                                            switch (message) {
+                                                case "red":
+                                                    card.setColor(Color.RED);
+                                                    flag2 = true;
+                                                    break;
+                                                case "green":
+                                                    card.setColor(Color.GREEN);
+                                                    flag2 = true;
+                                                    break;
+                                                case "blue":
+                                                    card.setColor(Color.BLUE);
+                                                    flag2 = true;
+                                                    break;
+                                                case "yellow":
+                                                    card.setColor(Color.YELLOW);
+                                                    flag2 = true;
+                                                    break;
+                                                default:
+                                                    user.getOut().println("There is now such color. Choose between red, blue, yellow and green.");
+                                            }
+                                        }
+                                        for (User user1 : users) {
+                                            user1.getOut().println("Color is " + message + " now.");
+                                        }
                                     }
-                                    for (User user1: users){
-                                        user1.getOut().println("Color is " + message + " now.");
+                                    for (User user1 : users) {
+                                        PrintWriter out = user1.getOut();
+                                        out.println(card);
                                     }
+                                    user.handOut();
+                                    flag = true;
+                                } else {
+                                    user.getOut().println("Try again.");
                                 }
-                                for (User user1 : users) {
-                                    PrintWriter out = user1.getOut();
-                                    out.println(card);
-                                }
-                                user.handOut();
-                                flag = true;
                             } else {
-                                user.getOut().println("Try again.");
+                                user.getOut().println("You have no such card. Try again.");
                             }
                         }
                     }

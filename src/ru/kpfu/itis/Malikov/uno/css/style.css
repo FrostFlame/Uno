@@ -1,0 +1,35 @@
+
+#main-menu-button-blue {
+    -fx-background-color: blue;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: linear-gradient(cornflowerblue, white);
+    -fx-font-size: 25px;
+}
+
+#main-menu-button-red {
+    -fx-background-color: orangered;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: linear-gradient(lightcoral, white);
+    -fx-font-size: 25px;
+}
+
+#main-menu-button-yellow {
+    -fx-background-color: green;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: linear-gradient(lightgreen, white);
+    -fx-font-size: 25px;
+}
+#help-button-blue {
+    -fx-background-color: blue;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: linear-gradient(cornflowerblue, white);
+    -fx-font-size: 15px;
+}

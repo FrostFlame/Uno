@@ -1,27 +1,24 @@
-package classes;
+package ru.kpfu.itis.group11501.uno.classes;
 
-import entities.User;
-//import threads.Connection;
+import ru.kpfu.itis.group11501.uno.entities.User;
+//import main.java.ru.kpfu.itis.group11501.uno.threads.Connection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by 1 on 05.12.2016.
  */
-public class Server {
+public class    Server {
 
-    public static void main(String[] args) {
-        new Server();
-    }
+//    public static void main(String[] args) {
+//        new Server();
+//    }
 
 
     private ServerSocket server;

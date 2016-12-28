@@ -1,4 +1,4 @@
-package entities;
+package ru.kpfu.itis.group11501.uno.entities;
 
 /**
  * Created by 1 on 05.12.2016.

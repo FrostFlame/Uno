@@ -1,4 +1,4 @@
-package entities;
+package ru.kpfu.itis.group11501.uno.entities;
 
 import java.util.ArrayList;
 import java.util.Collections;

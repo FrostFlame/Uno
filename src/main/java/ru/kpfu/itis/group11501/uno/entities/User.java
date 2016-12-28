@@ -1,6 +1,4 @@
-package entities;
-
-import threads.Resender;
+package ru.kpfu.itis.group11501.uno.entities;
 
 import java.io.BufferedReader;
 import java.io.IOException;

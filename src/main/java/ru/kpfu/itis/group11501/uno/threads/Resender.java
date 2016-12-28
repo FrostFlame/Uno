@@ -1,8 +1,7 @@
-package threads;
+package ru.kpfu.itis.group11501.uno.threads;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.SocketException;
 
 /**
  * Created by 1 on 08.12.2016.

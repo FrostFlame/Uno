@@ -1,9 +1,9 @@
-package classes;
+package ru.kpfu.itis.group11501.uno.classes;
 /**
  * Created by 1 on 05.12.2016.
  */
 
-import threads.Resender;
+import ru.kpfu.itis.group11501.uno.threads.Resender;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,10 +17,9 @@ public class Client {
     private PrintWriter out;
     private Socket socket;
 
-    public static void main(String[] args) {
-        new Client();
-    }
-
+//    public static void main(String[] args) {
+//        new Client();
+//    }
 
     public Client() {
         Scanner scan = new Scanner(System.in);

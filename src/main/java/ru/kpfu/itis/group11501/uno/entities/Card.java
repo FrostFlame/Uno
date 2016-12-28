@@ -1,4 +1,4 @@
-package entities;
+package ru.kpfu.itis.group11501.uno.entities;
 
 /**
  * Created by 1 on 05.12.2016.
@@ -77,6 +77,6 @@ public class Card {
     }
 
     public boolean isPlayable(Card prevcard){
-        return prevcard == null || prevcard.color == Color.BLACK | this.color == Color.BLACK | this.color == prevcard.color | this.value == prevcard.value;
+        return prevcard == null || this.color == Color.BLACK | this.color == prevcard.color | this.value == prevcard.value | (this.value == 10 & prevcard.value == -1);
     }
 }

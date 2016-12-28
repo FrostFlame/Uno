@@ -34,7 +34,7 @@
                 </descriptorRefs>
                 <archive>
                     <manifest>
-                        <mainClass>ru.kpfu.itis.group11501.uno.classes.Main</mainClass>
+                        <mainClass>ru.kpfu.itis.group11501.serazetdinov.uno.classes.Main</mainClass>
                     </manifest>
                 </archive>
             </configuration>

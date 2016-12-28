@@ -40,8 +40,9 @@ public class Game {
         Card prevCard = null;
 
         //Game loop
-        while (users.get(0).getHand().getCards().size() != 0 && users.get(1).getHand().getCards().size() != 0
-                && users.get(2).getHand().getCards().size() != 0 && users.get(3).getHand().getCards().size() != 0) {
+        boolean someoneHas0Cards = false;
+        label:
+        while (!someoneHas0Cards) {
             for (User user : users) {
                 if (prevCard != null) {
                     if (prevCard.getValue() == 10) {
@@ -133,6 +134,9 @@ public class Game {
                                             PrintWriter out = user1.getOut();
                                             out.println(card);
                                         }
+                                        if (user.getHand().getCards().size() == 0){
+                                            someoneHas0Cards = true;
+                                        }
                                         user.handOut();
                                         flag = true;
                                     } else {
@@ -146,6 +150,9 @@ public class Game {
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+                if (someoneHas0Cards){
+                    break label;
                 }
             }
         }

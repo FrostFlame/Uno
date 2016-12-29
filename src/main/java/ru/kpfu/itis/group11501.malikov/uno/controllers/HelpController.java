@@ -23,7 +23,7 @@ public class HelpController implements Initializable {
 
     public void goToMainMenu(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) btnHelpBack.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/Start.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         Scene scene = new Scene(root );
         stage.setScene(scene);
         stage.show();

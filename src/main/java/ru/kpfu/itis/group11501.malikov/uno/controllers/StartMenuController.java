@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
  * Created by Дамир on 11.12.2016.
  */
 public class StartMenuController implements Initializable {
-    private static final String HELP_FXML = "../fxml/Help.fxml";
-    private static final String LOBBY_LIST_FXML = "../fxml/lobbyList.fxml";
+    private static final String HELP_FXML = "/fxml/Help.fxml";
+    private static final String LOBBY_LIST_FXML = "fxml/lobbyList.fxml";
     private static String resource;
 
     @FXML
@@ -40,7 +40,7 @@ public class StartMenuController implements Initializable {
             System.exit(0);
         }
         else if (actionEvent.getSource().equals(game)) {
-            resource = LOBBY_LIST_FXML;
+//            resource = LOBBY_LIST_FXML;
         }
         else if (actionEvent.getSource().equals(help)) {
             resource = HELP_FXML;

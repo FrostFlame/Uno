@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by 1 on 05.12.2016.
  */
-public class    Server {
+public class Server {
 
 //    public static void main(String[] args) {
 //        new Server();
